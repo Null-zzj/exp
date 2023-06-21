@@ -14,7 +14,7 @@ int LengthLinklist(Linklist head);   // 返回链表长度
 int SearchLinklist(Linklist head, Data data); //查找数据
 int GetLinklist(Linklist head, int pos, Data* data);  // 读取指定位置的数据
 
-int InsertLinklistByPos(Linklist *head, Data data, int pos)
+int InsertLinklistByPos(Linklist *head, Data data, int pos);
 int InsertLinklisByEnd(Linklist head, Data data);  // 尾插
 int InsertLinklisByHead(Linklist *head, Data); // 头插
 int InsertLinklistByInc(Linklist *head, Data data); // 按升序插入

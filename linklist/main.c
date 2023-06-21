@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     head->data = 1;
 
     VisitLinklist(head);
-    InsertLinklistByPos(head, 1, 1);
+    InsertLinklistByPos(&head, 1, 1);
     VisitLinklist(head);
     Data data;
 
@@ -64,15 +64,15 @@ int main(int argc, char *argv[])
     printf("-----\n单链表反转\n");    
     ReverseLinklist(head); 
     VisitLinklist(head);
-    printf("len = %d\n", LengthLinklist(head));
+    
 
 
-    // printf("-----\n清空链表\n");    
-    // ClearLinklist(&head);
+    printf("-----\n清空链表\n");    
+    ClearLinklist(&head);
     VisitLinklist(head);
 
 
-    printf("len = %d\n", LengthLinklist(head));
+    
 
 
    

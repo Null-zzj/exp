@@ -129,7 +129,7 @@ int GetLinklist(Linklist head, int pos, Data *data)
 //     return 0;
 // }
 
-int _InsertLinklistByPos(Linklist *head, Data data, int pos)
+int InsertLinklistByPos(Linklist *head, Data data, int pos)
 {
     if (head == NULL)
     {
@@ -141,15 +141,16 @@ int _InsertLinklistByPos(Linklist *head, Data data, int pos)
         printf("pos is invial\n");
     }
     Linklist *curr = &(*head)->next;
-    Lisklist p; 
+    Linklist p; 
     while(*curr && pos--)
     {
         curr = &(*curr)->next;
     }
 
     p = malloc(sizeof(Node));
+    p->data = data;
     p->next = (*curr)->next;
-    (*curr->next) = p; 
+    (*curr)->next = p; 
     return 0;
 } 
 
@@ -168,6 +169,7 @@ int InsertLinklisByEnd(Linklist head, Data data)
     q = malloc(sizeof(Node));
     q->data = data;
     p->next = q;
+    q->next = NULL;
     head->data++;
 }
 
