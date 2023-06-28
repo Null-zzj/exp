@@ -71,7 +71,7 @@ void MidOrderTraverse(Btree *T)  // 中序
     MidOrderTraverse(T->rchild);
 }
 
-void _MidOrderTraverse(Btree *T)  // 迭代法中序
+void _MidOrderTraverse(Btree *T)  // 迭代法中序   访问顺序  左中右
 {
     Btree* stack[1024] = {0};
     int rear = 0, top = -1;
@@ -81,18 +81,15 @@ void _MidOrderTraverse(Btree *T)  // 迭代法中序
         if(curr)   // 父节点入栈
         {
             stack[++top] = curr;   
-            curr = curr->lchild;   // 指向左子节点
+            curr = curr->lchild;   // 指向左子节点，左节点优先入栈
             
-        }else
+        }else   // 如果为空，说明该节点无左右子树，则应该出栈
         {
             curr = stack[top--];    // 出栈
             printf("%d ", curr->data);
-            curr = curr->rchild;     // 指向右子树
+            curr = curr->rchild;     // 右节点后入栈，如果右节点还是为空，则再次出栈
         }
-
     }
-
-
 }
 
 void AftOrderTraverse(Btree *T)  // 后序
@@ -116,15 +113,15 @@ void _AftOrderTraverse(Btree *T) // 迭代法后序
 // 层序遍历
 void levelOrder(Btree *T)
 {
-    Btree* queue[1024] = {0};
+    Btree* queue[1024] = {0};  // 声明队列
     int rear = 0, front = 0;
     Btree* curr = T;
 
-    queue[rear] = curr;
+    queue[rear] = curr;      // root节点入队
     rear = (rear + 1) % 1024;
     while(front != rear)
     {
-        curr = queue[front];
+        curr = queue[front];        // 先将队列中的第一个节点出队，再将子节点入队，形成有序序列
         printf("%d ", curr->data);
         front = (front + 1) % 1024;
         
@@ -140,11 +137,6 @@ void levelOrder(Btree *T)
             rear = (rear + 1) % 1024;
         }
 
-
-        
-            
-            
-        
     }
 
 }
