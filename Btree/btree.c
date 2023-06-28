@@ -1,57 +1,102 @@
 #include <malloc.h>
 #include "btree.h"
 
-
-Btree* createNode(int n, int i){
-    Btree* node = malloc(sizeof(Btree)); 
-    if(node == NULL)
+Btree *createNode(int n, int i)
+{
+    Btree *node = malloc(sizeof(Btree));
+    if (node == NULL)
     {
         perror("malloc");
         return NULL;
-    
     }
     node->data = i;
-    if(i*2 <= n)
+    if (i * 2 <= n)
     {
-        node->lchild = createNode(n, i*2);
-    }else
+        node->lchild = createNode(n, i * 2);
+    }
+    else
     {
         node->lchild = NULL;
     }
 
-    if(i*2 + 1 <= n)
-    {     
-        node->rchild = createNode(n, i*2+1);
-    }else
+    if (i * 2 + 1 <= n)
+    {
+        node->rchild = createNode(n, i * 2 + 1);
+    }
+    else
     {
         node->rchild = NULL;
     }
 
     return node;
-
 }
 
-void PreOrderTraverse(Btree* T) {
+void PreOrderTraverse(Btree *T) // 先序
+{ 
     if (!T)
         return;
-    
+
     printf("%d ", T->data);
     PreOrderTraverse(T->lchild);
     PreOrderTraverse(T->rchild);
+}
+
+void _PreOrderTraverse(Btree *T) // 迭代法先序
+{
+    Btree* stack[1024] = {0};
+    int rear = 0, top = -1;
+    
+    Btree* curr = T;
+    stack[++top] = curr;
+    while(top >= 0)
+    {
+        curr = stack[top--];
+        printf("%d ", curr->data);
+         
+        if(curr->rchild)
+            stack[++top] = curr->rchild;
+        if(curr->lchild)
+            stack[++top] = curr->lchild;
+    }
 
 }
 
-void MidOrderTraverse(Btree* T) {
+void MidOrderTraverse(Btree *T)  // 中序
+{
     if (!T)
         return;
 
     MidOrderTraverse(T->lchild);
-    printf("%d ", T->data);  
+    printf("%d ", T->data);
     MidOrderTraverse(T->rchild);
 }
 
+void _MidOrderTraverse(Btree *T)  // 迭代法中序
+{
+    Btree* stack[1024] = {0};
+    int rear = 0, top = -1;
+    Btree* curr = T;
+    while(curr || top >= 0)
+    {
+        if(curr)   // 父节点入栈
+        {
+            stack[++top] = curr;   
+            curr = curr->lchild;   // 指向左子节点
+            
+        }else
+        {
+            curr = stack[top--];    // 出栈
+            printf("%d ", curr->data);
+            curr = curr->rchild;     // 指向右子树
+        }
 
-void AftOrderTraverse(Btree* T) {
+    }
+
+
+}
+
+void AftOrderTraverse(Btree *T)  // 后序
+{
     if (!T)
         return;
 
@@ -60,3 +105,46 @@ void AftOrderTraverse(Btree* T) {
     printf("%d ", T->data);
 }
 
+void _AftOrderTraverse(Btree *T) // 迭代法后序
+ {
+
+
+      
+}
+
+
+// 层序遍历
+void levelOrder(Btree *T)
+{
+    Btree* queue[1024] = {0};
+    int rear = 0, front = 0;
+    Btree* curr = T;
+
+    queue[rear] = curr;
+    rear = (rear + 1) % 1024;
+    while(front != rear)
+    {
+        curr = queue[front];
+        printf("%d ", curr->data);
+        front = (front + 1) % 1024;
+        
+
+        if(curr->lchild != NULL)
+        {
+            queue[rear] = curr->lchild;
+            rear = (rear + 1) % 1024;
+        }
+        if(curr->rchild != NULL)
+        {
+            queue[rear] = curr->rchild;
+            rear = (rear + 1) % 1024;
+        }
+
+
+        
+            
+            
+        
+    }
+
+}
