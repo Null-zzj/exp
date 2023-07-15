@@ -1,4 +1,6 @@
-#include <myinclude.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <signal.h>
 #include <string.h>
 

@@ -41,6 +41,7 @@ int insert(Linklist head, Data data)
     curr->next = q;
     q->data = data;
     q->next = head;
+    return 0;
 }
 int delete(Linklist *head)
 {
@@ -52,6 +53,7 @@ int delete(Linklist *head)
     curr->next = (*head)->next;
     free(*head);
     *head = curr->next;
+    return 0;
 }
 
 void print(Linklist head)
